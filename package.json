@@ -1,0 +1,25 @@
+{
+  "name": "Poke-Battle",
+  "version": "1.0.0",
+  "description": "## MVP - At least 2 players can play at once - Every player has a health bar and a move set - In real time, players can do moves (attack, heal etc) that affect the player they're fighting - Global hub broadcasts updated player health after every attack - Global hub broadcasts winner of match",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Javascript-Code-Fellowship/Poke-Battle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Javascript-Code-Fellowship/Poke-Battle/issues"
+  },
+  "homepage": "https://github.com/Javascript-Code-Fellowship/Poke-Battle#readme",
+  "dependencies": {
+    "jest": "^27.1.0",
+    "socket.io": "^4.2.0",
+    "socket.io-client": "^4.2.0"
+  }
+}
