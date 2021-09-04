@@ -4,14 +4,29 @@ const io = require("socket.io")(port);
 const pokeHub = io.of("/pokehub");
 
 //start it up!!!
-pokeHub.emit("create-player");
+
+const queue = []
 
 pokeHub.on("connection", (socket) => {
+  pokeHub.emit("create-player");
+
+  socket.on('player-created', payload => {
+    queue.push(payload)
+  })
   console.log("global", socket.id);
-  //join clients to a room when they connect
+
+  if (queue.length >= 2) {
+    //join clients to a room when they connect
+    let roomName = `${queue[0].name}-vs-${queue[1].name}`
+    pokeHub.emit(`${queue[0]}`, roomName)
+    pokeHub.emit(`${queue[1]}`, roomName)
+    queue.shift()
+    queue.shift()
+  }
+
   socket.on("join", (payload) => {
     console.log(`${payload.player} joined`);
-    socket.join("fightroom");
+    socket.join(`${payload.roomName}`);
     const output = `${payload.player} is ready to fight!`;
     pokeHub.to("fightroom").emit("joined", output);
   });
