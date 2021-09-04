@@ -3,6 +3,9 @@ const io = require("socket.io")(port);
 
 const pokeHub = io.of("/pokehub");
 
+//start it up!!!
+pokeHub.emit("create-player");
+
 pokeHub.on("connection", (socket) => {
   console.log("global", socket.id);
   //join clients to a room when they connect
