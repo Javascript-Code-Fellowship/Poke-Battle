@@ -1,10 +1,7 @@
 'use strict';
 
-const faker = require('faker');
-
-
 class Player {
-  constructor() {
+  constructor(faker) {
     this.health = 10,
     this.player = faker.internet.userName(),
     this.catchphrase = "Welcome to FLAVORTOWN!"
