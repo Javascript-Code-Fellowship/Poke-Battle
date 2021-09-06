@@ -80,7 +80,7 @@ server.on('heal-self', (payload) => {
   // console.log(`${payload.name}`, payload.health)
   profile.health = profile.health + 1;
   server.emit('broadcast-health', profile);
-
+})
 
 async function userInterface() {
   if (profile.health > 0) {
@@ -95,17 +95,17 @@ async function userInterface() {
     switch (answer.action) {
       case 'quick-attack':
         console.log(answer.action);
-        server.emit('quick-attack');
+        server.emit('quick-attack', profile);
         userInterface();
         break;
       case 'heavy-attack':
         setTimeout(() => {
-          server.emit('heavy-attack');
+          server.emit('heavy-attack', profile);
         }, 3000);
         userInterface();
         break;
       case 'heal-self':
-        server.emit('heal-self');
+        server.emit('heal-self', profile);
         userInterface();
         break;
       case 'quit':
@@ -113,7 +113,6 @@ async function userInterface() {
     }
   }
 }
-
 
 module.exports = {};
 

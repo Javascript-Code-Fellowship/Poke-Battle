@@ -13,10 +13,8 @@ pokeHub.on("connection", (socket) => {
 
   socket.on('player-created', payload => {
     queue.push(payload)
-    console.log('Queue:', queue)
     if (queue.length >= 2) {
       //join clients to a room when they connect
-      console.log('2!!!')
       let roomName = `${queue[0].player}-vs-${queue[1].player}`
       pokeHub.emit(`${queue[0].player}`, roomName)
       pokeHub.emit(`${queue[1].player}`, roomName)
@@ -31,13 +29,14 @@ pokeHub.on("connection", (socket) => {
     socket.join(`${payload.roomName}`);
     console.log(`${payload.player} joined`);
     const output = `${payload.player} is ready to fight!`;
-    pokeHub.to(`${payload.roomName}`).emit("joined", output);
+    socket.emit('joined', output)
+    // pokeHub.to(`${payload.roomName}`).emit("joined", output);
 
   });
 
   socket.on('quick-attack', (payload) => {
     //   let damage = payload.move.damage
-    console.log('quick attack');
+    console.log('quick attack', payload);
 
     const output = {
       // damage: damage,
