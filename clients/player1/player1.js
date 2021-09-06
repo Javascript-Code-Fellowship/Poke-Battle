@@ -10,13 +10,10 @@ let profile = null;
 
 const joinFight = async () => {
   profile = new Player(faker);
-  return profile
-}
-
-server.on('create-player', () => {
-  joinFight();
   server.emit('player-created', profile)
-})
+}
+joinFight();
+console.log(profile.player)
 
 server.on(`${profile.player}`, (roomName) => {
   profile.roomName = roomName
@@ -63,20 +60,20 @@ server.on('heal-self', (payload) => {
 
 const payload = new Player(faker)
 payload.player = `Player1`
-setInterval(() => {
-  // const payload = new Player(faker)
-  server.emit('quick-attack', payload)
-}, 1000)
+// setInterval(() => {
+//   // const payload = new Player(faker)
+//   server.emit('quick-attack', payload)
+// }, 1000)
 
-setInterval(() => {
-  // const payload = new Player(faker)
-  server.emit('heavy-attack', payload)
-}, 3000)
+// setInterval(() => {
+//   // const payload = new Player(faker)
+//   server.emit('heavy-attack', payload)
+// }, 3000)
 
-setInterval(() => {
-  // const payload = new Player(faker)
-  server.emit('heal-self', payload)
-}, 5000)
+// setInterval(() => {
+//   // const payload = new Player(faker)
+//   server.emit('heal-self', payload)
+// }, 5000)
 
 module.exports = {};
 
