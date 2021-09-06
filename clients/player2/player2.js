@@ -95,17 +95,17 @@ async function userInterface() {
     switch (answer.action) {
       case "quick-attack":
         console.log(answer.action);
-        server.emit("quick-attack");
+        server.emit("quick-attack", profile);
         userInterface();
         break;
       case "heavy-attack":
         setTimeout(() => {
-          server.emit("heavy-attack");
+          server.emit("heavy-attack", profile);
         }, 3000);
         userInterface();
         break;
       case "heal-self":
-        server.emit("heal-self");
+        server.emit("heal-self", profile);
         userInterface();
         break;
       case "quit":
@@ -113,23 +113,6 @@ async function userInterface() {
     }
   }
 }
-
-const payload = new Player(faker)
-payload.player = `Player2`
-// setInterval(() => {
-//   // const payload = new Player(faker)
-//   server.emit('quick-attack', payload)
-// }, 1000)
-
-// setInterval(() => {
-//   // const payload = new Player(faker)
-//   server.emit('heavy-attack', payload)
-// }, 3000)
-
-// setInterval(() => {
-//   // const payload = new Player(faker)
-//   server.emit('heal-self', payload)
-// }, 5000)
 
 module.exports = {};
 
