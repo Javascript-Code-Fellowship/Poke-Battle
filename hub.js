@@ -1,7 +1,7 @@
 const port = process.env.PORT || 3000;
-const io = require("socket.io")(port);
+const io = require('socket.io')(port);
 
-const pokeHub = io.of("/pokehub");
+const pokeHub = io.of('/pokehub');
 
 //start it up!!!
 
@@ -32,38 +32,39 @@ pokeHub.on("connection", (socket) => {
     console.log(`${payload.player} joined`);
     const output = `${payload.player} is ready to fight!`;
     pokeHub.to(`${payload.roomName}`).emit("joined", output);
+
   });
 
-  socket.on("quick-attack", (payload) => {
+  socket.on('quick-attack', (payload) => {
     //   let damage = payload.move.damage
-    console.log("quick attack", payload);
+    console.log('quick attack');
 
     const output = {
       // damage: damage,
-      message: "You were hit with a quick attack!",
+      message: 'You were hit with a quick attack!',
     };
     //emits to just the other player
     socket.to(`${payload.roomName}`).emit("quick-attack", payload);
   });
 
-  socket.on("heavy-attack", (payload) => {
+  socket.on('heavy-attack', (payload) => {
     //   let damage = payload.move.damage
-    console.log("heavy attack", payload);
+    console.log('heavy attack');
 
     const output = {
       // damage: damage,
-      message: "You were hit with a heavy attack!",
+      message: 'You were hit with a heavy attack!',
     };
     //emits to just the other player
     socket.to(`${payload.roomName}`).emit("heavy-attack", payload);
   });
 
-  socket.on("heal-self", (payload) => {
+  socket.on('heal-self', (payload) => {
     let player = payload.player;
-    console.log(`${player} used heal-self!`, payload);
+    console.log(`${player} used heal-self!`);
   });
 
-  socket.on("ko", (payload) => {
+  socket.on('ko', (payload) => {
     console.log(`${payload.player} was knocked out!`);
   });
 });
