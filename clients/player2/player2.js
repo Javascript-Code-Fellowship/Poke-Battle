@@ -4,7 +4,7 @@ const io = require('socket.io-client');
 const Player = require('../player-generator');
 const server = io.connect('http://localhost:3000/pokehub');
 const faker = require('faker');
-const { Socket } = require('socket.io');
+const inquirer = require('inquirer');
 
 let profile = null;
 

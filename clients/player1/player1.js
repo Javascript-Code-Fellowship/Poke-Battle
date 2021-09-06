@@ -4,7 +4,7 @@ const io = require('socket.io-client');
 const Player = require('../player-generator');
 const server = io.connect('http://localhost:3000/pokehub');
 const faker = require('faker');
-const { Socket } = require('socket.io');
+const inquirer = require('inquirer');
 
 let profile = null;
 
@@ -21,8 +21,31 @@ joinFight();
 //   }
 // })
 
+
+
 server.on('joined', (payload) => {
   console.log(payload);
+
+  inquirer
+  .prompt([
+    {
+      type: 'list',
+      name: 'ready',
+      message: 'Are you ready?',
+      choices: ['Yes', 'No']
+    }
+  ])
+  .then((answers) => {
+    console.log(`Player is: ${answers.ready}`);
+  })
+  .catch((error) => {
+    if (error.isTtyError) {
+      console.log(error);
+    } else {
+      console.log(error);
+    }
+  });
+
 })
 
 server.on('quick-attack', (payload) => {
