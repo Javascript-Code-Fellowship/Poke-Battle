@@ -15,11 +15,12 @@ pokeHub.on("connection", (socket) => {
   })
   console.log("global", socket.id);
 
+
   if (queue.length >= 2) {
     //join clients to a room when they connect
-    let roomName = `${queue[0].name}-vs-${queue[1].name}`
-    pokeHub.emit(`${queue[0]}`, roomName)
-    pokeHub.emit(`${queue[1]}`, roomName)
+    let roomName = `${queue[0].player}-vs-${queue[1].player}`
+    pokeHub.emit(`${queue[0].player}`, roomName)
+    pokeHub.emit(`${queue[1].player}`, roomName)
     queue.shift()
     queue.shift()
   }
