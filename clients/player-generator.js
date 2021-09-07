@@ -1,13 +1,11 @@
 'use strict';
 
 class Player {
-  constructor(faker) {
+  constructor(name, catchphrase) {
     this.health = 10;
-    this.player = faker.internet.userName();
-    this.catchphrase = "Welcome to FLAVORTOWN!";
-    this.roomName = '';
+    this.player = name;
+    this.catchphrase = catchphrase;
   }
-
 }
 
-module.exports = Player
+module.exports = Player;

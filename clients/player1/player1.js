@@ -1,36 +1,21 @@
 'use strict';
 
 const io = require('socket.io-client');
-const Player = require('../player-generator');
 const server = io.connect('http://localhost:3000/pokehub');
-const faker = require('faker');
+
 const inquirer = require('inquirer');
+let profile;
 
-let profile = null;
+server.on('player-created', (payload) => {
+  server.emit('player-created', payload);
+});
 
-const joinFight = async () => {
-  profile = new Player(faker);
-  server.emit('player-created', profile)
-}
-
-joinFight();
-console.log(profile.player)
-
-server.on(`${profile.player}`, (roomName) => {
-  profile.roomName = roomName
-  server.emit('join', profile)
-})
-
-
-// quickHit(KeyCodeArr) (async () => {
-//   if (KeyCodeArr[32]) {
-//     socket.emit('quick-attack', payload)
-//   }
-// })
+server.on('dequeue', (payload) => {
+  profile = payload.player;
+  server.emit('join', payload);
+});
 
 server.on('joined', (payload) => {
-  console.log(payload);
-
   inquirer
     .prompt([
       {
@@ -80,7 +65,7 @@ server.on('heal-self', (payload) => {
   // console.log(`${payload.name}`, payload.health)
   profile.health = profile.health + 1;
   server.emit('broadcast-health', profile);
-})
+});
 
 async function userInterface() {
   if (profile.health > 0) {
